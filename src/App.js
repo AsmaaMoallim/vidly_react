@@ -1,11 +1,16 @@
-import './App.css';
+import "./App.css";
+import { getMovies } from "./services/movieService";
+import { getGenre } from "./services/genreService";
+import Movie from "./movies";
+import Movies from "./components/movie";
 
 function App() {
   return (
     <main className="container">
-      <h1> Hello world </h1>
+      <Movies />
     </main>
   );
 }
 
 export default App;
+//
