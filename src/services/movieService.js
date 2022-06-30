@@ -1,6 +1,6 @@
 import * as genresAPI from "./genreService";
 
-const movies = [
+let movies = [
   {
     _id: "1",
     title: "Die Hard",
@@ -31,6 +31,13 @@ export function getMovies() {
 
 export function getMovie(id) {
   return movies.find((movie) => movie._id == id);
+}
+
+export function deleteMovie(id) {
+  const movieItem = movies.find((movie) => movie._id == id);
+  movies = movies.filter((movie) => movie._id != movieItem._id);
+  console.log(movies);
+  return movies;
 }
 
 export function saveMovie(movie) {}
