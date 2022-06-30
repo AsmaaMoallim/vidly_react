@@ -11,6 +11,7 @@ let movies = [
     numberInStock: 5,
     dailyRentalRate: 2.5,
     publishDate: "2018-01-03T19:28.8092",
+    liked: false,
   },
   {
     _id: "2",
@@ -22,6 +23,7 @@ let movies = [
     numberInStock: 7,
     dailyRentalRate: 4,
     publishDate: "2008-01-03T19:28.8092",
+    liked: true,
   },
 ];
 
