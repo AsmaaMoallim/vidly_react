@@ -43,4 +43,4 @@ Pagination.propTypes = {
   onPageChange: PropTypes.func.isRequired,
 };
 
-export default Pagination;
+export default Pagination;  
