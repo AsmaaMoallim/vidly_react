@@ -117,13 +117,13 @@ let movies = [
       name: "Horror",
     },
     numberInStock: 7,
-    dailyRentalRate: 4,
+    dailyRentalRate: 46,
     publishDate: "2008-01-03T19:28.8092",
     liked: true,
   },
   {
     _id: "11",
-    title: "Die Hard",
+    title: "green Hard",
     genre: {
       _id: "12",
       name: "Action",
@@ -141,7 +141,7 @@ let movies = [
       name: "Horror",
     },
     numberInStock: 7,
-    dailyRentalRate: 4,
+    dailyRentalRate: 99,
     publishDate: "2008-01-03T19:28.8092",
     liked: true,
   },
@@ -159,7 +159,7 @@ let movies = [
   },
   {
     _id: "15",
-    title: "Cold sea",
+    title: "hot sea",
     genre: {
       _id: "2",
       name: "Horror",
