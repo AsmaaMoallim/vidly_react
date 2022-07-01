@@ -1,10 +1,14 @@
 import React, { Component } from "react";
 import { getMovies, deleteMovie } from "../services/movieService";
 import Like from "../components/common/like";
+import Pagination from "./common/pagination";
+import { paginate } from "../utils/paginate";
 
 class Movies extends Component {
   state = {
     movies: getMovies(),
+    pageSize: 6,
+    currentPage: 1,
   };
 
   handelDelete = (movie) => {
@@ -23,6 +27,11 @@ class Movies extends Component {
     // console.log(movie);
   };
 
+  handdelPageChange = (page) => {
+    this.setState({ currentPage: page });
+    console.log("page changed", page);
+  };
+
   render() {
     const { length } = this.state.movies;
 
@@ -30,8 +39,14 @@ class Movies extends Component {
       return <p>There is no movies! </p>;
     }
 
+    const movies = paginate(
+      this.state.movies,
+      this.state.currentPage,
+      this.state.pageSize
+    );
+
     return (
-      <fragment>
+      <React.Fragment>
         {/* {length <= 0 && <p>There is no movies! </p>}{" "} */}
         <p>Showing available {length} movies </p>
         <table className="table">
@@ -46,7 +61,7 @@ class Movies extends Component {
             </tr>
           </thead>
           <tbody>
-            {this.state.movies.map((movie) => {
+            {movies.map((movie) => {
               return (
                 <tr key={movie._id}>
                   <td>{movie.title}</td>
@@ -75,7 +90,13 @@ class Movies extends Component {
             })}
           </tbody>
         </table>
-      </fragment>
+        <Pagination
+          itemsCount={length}
+          pageSize={this.state.pageSize}
+          onPageChange={this.handdelPageChange}
+          currentPage={this.state.currentPage}
+        />
+      </React.Fragment>
     );
   }
 }
