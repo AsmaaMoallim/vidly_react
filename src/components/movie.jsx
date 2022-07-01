@@ -11,12 +11,17 @@ class Movies extends Component {
     movies: [],
     // genres: getGenres(),
     genres: [],
-    pageSize: 6,
+    pageSize: 4,
     currentPage: 1,
+    currentGenre: {
+      _id: "1",
+      name: "Action",
+    },
   };
 
   componentDidMount() {
-    this.setState({ movies: getMovies(), genres: getGenres() });
+    const genres = [{ name: "All Genres" }, ...getGenres()];
+    this.setState({ movies: getMovies(), genres });
   }
 
   handelDelete = (movie) => {
@@ -41,18 +46,28 @@ class Movies extends Component {
   };
 
   handelGenreSelect = (genre) => {
+    this.setState({ currentGenre: genre, currentPage: 1 });
     console.log("test", genre.name);
   };
 
   render() {
-    const { length } = this.state.movies;
+    const filterdMovies =
+      this.state.currentGenre && this.state.currentGenre._id
+        ? this.state.movies.filter(
+            (movie) => movie.genre._id == this.state.currentGenre._id
+          )
+        : this.state.movies;
+    // const filterdMovies = this.state.movies.filter(
+    //   (movie) => movie.genre.name == this.state.currentGenre
+    // );
+    const { length } = filterdMovies;
 
     if (length <= 0) {
       return <p>There is no movies! </p>;
     }
 
     const movies = paginate(
-      this.state.movies,
+      filterdMovies,
       this.state.currentPage,
       this.state.pageSize
     );
@@ -62,6 +77,7 @@ class Movies extends Component {
         <div className="col-2">
           <ListGroup
             items={this.state.genres}
+            selectedItem={this.state.currentGenre}
             // textProperty="name"
             // valuePropert="_id"
             onItemSelect={this.handelGenreSelect}
