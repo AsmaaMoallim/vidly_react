@@ -1,9 +1,5 @@
 import React, { Component } from "react";
 
-// column: array
-// sortColumn
-//  onSort
-
 class TableHeader extends Component {
   raiseSort = (path) => {
     console.log(path);
@@ -19,22 +15,21 @@ class TableHeader extends Component {
 
   render() {
     return (
-      <tr>
-        {this.props.columns.map((col) => {
-          return (
-            <th
-              key={col.dbName}
-              onClick={() => this.raiseSort(col.dbName)}
-              className={col.dbName}
-            >
-              {col.lable}
-            </th>
-          );
-        })}
-        {/* {this.props.emptyThCount.map((head) => (
-          <th key={head}></th>
-        ))} */}
-      </tr>
+      <thead>
+        <tr>
+          {this.props.columns.map((column) => {
+            return (
+              <th
+                key={column.dbName || column.key}
+                onClick={() => this.raiseSort(column.dbName)}
+                className={column.dbName}
+              >
+                {column.lable}
+              </th>
+            );
+          })}
+        </tr>
+      </thead>
     );
   }
 }

@@ -8,38 +8,23 @@ class TableBody extends Component {
     if (column.content) return column.content(item);
     return _.get(item, column.dbName);
   };
+
+  createKey = (item, column) => item._id + (column.dbName || column.key);
+
   render() {
-    return this.props.data.map((item) => (
-      <tr key={item._id || item.key}>
-        {this.props.columns.map((column) => (
-          <td>{this.renderCell(item, column)}</td>
+    return (
+      <tbody>
+        {this.props.data.map((item) => (
+          <tr key={item._id}>
+            {this.props.columns.map((column) => (
+              <td key={this.createKey(item, column)}>
+                {this.renderCell(item, column)}
+              </td>
+            ))}
+          </tr>
         ))}
-      </tr>
-    ));
-    // <tr key={item._id}>
-    //   <td>{item.title}</td>
-    //   <td>{item.genre.name}</td>
-    //   <td>{item.numberInStock}</td>
-    //   <td>{item.dailyRentalRate}</td>
-    //   <td>
-    //     <Like
-    //       liked={item.liked}
-    //       onClick={() => this.props.onlLikeClick(item)}
-    //     />
-    //   </td>
-    //   <td>
-    //     <button
-    //       className="btn btn-danger btn-sm"
-    //       onClick={() => {
-    //         this.props.onlDelete(item);
-    //       }}
-    //     >
-    //       {" "}
-    //       Delete{" "}
-    //     </button>
-    //   </td>
-    // </tr>
-    // });
+      </tbody>
+    );
   }
 }
 

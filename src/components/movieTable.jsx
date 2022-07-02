@@ -36,22 +36,17 @@ class MovieTable extends Component {
   render() {
     return (
       <table className="table">
-        <thead>
-          <TableHeader
-            columns={this.columns}
-            // emptyThCount={this.emptyThCount}
-            sortColumn={this.props.sortColumn}
-            onSort={this.props.onSort}
-          />
-        </thead>
-        <tbody>
-          <TableBody
-            data={this.props.movies}
-            onlLikeClick={this.props.onlLikeClick}
-            onDelete={this.props.onlDelete}
-            columns={this.columns}
-          />
-        </tbody>
+        <TableHeader
+          columns={this.columns}
+          sortColumn={this.props.sortColumn}
+          onSort={this.props.onSort}
+        />
+        <TableBody
+          data={this.props.movies}
+          onlLikeClick={this.props.onlLikeClick}
+          onDelete={this.props.onlDelete}
+          columns={this.columns}
+        />
       </table>
     );
   }
