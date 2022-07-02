@@ -6,10 +6,10 @@ import TableBody from "./tableBody";
 
 class MovieTable extends Component {
   columns = [
-    { dbName: "title", lable: "Title" },
-    { dbName: "genre.name", lable: "Genre" },
-    { dbName: "numberInStock", lable: "Stock" },
-    { dbName: "dailyRentalRate", lable: "Rate" },
+    { path: "title", lable: "Title" },
+    { path: "genre.name", lable: "Genre" },
+    { path: "numberInStock", lable: "Stock" },
+    { path: "dailyRentalRate", lable: "Rate" },
     {
       key: "like",
       content: (movie) => (

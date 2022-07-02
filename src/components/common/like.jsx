@@ -21,6 +21,7 @@ class Like extends Component {
   render() {
     let classes = "bi bi-balloon-heart";
     if (this.props.liked) classes += "-fill";
+    
     return (
       <i
         onClick={this.props.onClick}
