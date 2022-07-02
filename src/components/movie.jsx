@@ -19,7 +19,7 @@ class Movies extends Component {
       name: "Action",
     },
     sortColumn: {
-      path: "Title",
+      path: "title",
       order: "asc",
     },
   };
@@ -59,27 +59,27 @@ class Movies extends Component {
     const sortColumn = { ...this.state.sortColumn };
     if (sortColumn.path === path) {
       sortColumn.order = sortColumn.order === "asc" ? "desc" : "asc";
+      console.log("if", path, sortColumn);
     } else {
       sortColumn.path = path;
       sortColumn.order = "asc";
-      console.log(path);
+      console.log("else", path);
     }
 
     this.setState({ sortColumn });
-
   };
   render() {
     const filterdMovies =
       this.state.currentGenre && this.state.currentGenre._id
         ? this.state.movies.filter(
-            (movie) => movie.genre._id == this.state.currentGenre._id
+            (movie) => movie.genre._id === this.state.currentGenre._id
           )
         : this.state.movies;
 
     const sorted = _.sortBy(
       filterdMovies,
       [this.state.sortColumn.path],
-      ['desc']
+      [this.state.sortColumn.order]
     );
 
     const { length } = filterdMovies;
