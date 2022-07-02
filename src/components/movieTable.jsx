@@ -41,8 +41,6 @@ class MovieTable extends Component {
         sortColumn={this.props.sortColumn}
         onSort={this.props.onSort}
         data={this.props.movies}
-        onlLikeClick={this.props.onlLikeClick}
-        onDelete={this.props.onlDelete}
       />
     );
   }
