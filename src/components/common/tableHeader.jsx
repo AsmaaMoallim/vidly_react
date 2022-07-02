@@ -31,9 +31,9 @@ class TableHeader extends Component {
             </th>
           );
         })}
-        {this.props.emptyThCount.map((head) => (
+        {/* {this.props.emptyThCount.map((head) => (
           <th key={head}></th>
-        ))}
+        ))} */}
       </tr>
     );
   }
