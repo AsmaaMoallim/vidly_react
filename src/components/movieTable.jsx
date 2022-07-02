@@ -10,13 +10,30 @@ class MovieTable extends Component {
     { dbName: "genre.name", lable: "Genre" },
     { dbName: "numberInStock", lable: "Stock" },
     { dbName: "dailyRentalRate", lable: "Rate" },
-    { dbName: "like", lable: "" },
-    { dbName: "deleteButton", lable: "" },
+    {
+      key: "like",
+      content: (movie) => (
+        <Like
+          liked={movie.liked}
+          onClick={() => this.props.onlLikeClick(movie)}
+        />
+      ),
+    },
+    {
+      key: "deleteButton",
+      content: (movie) => (
+        <button
+          className="btn btn-danger btn-sm"
+          onClick={() => {
+            this.props.onlDelete(movie);
+          }}
+        >
+          Delete
+        </button>
+      ),
+    },
   ];
-  //   emptyThCount = ["like", "deleteButton"];
   render() {
-    // const { sortColumn } = this.props;
-
     return (
       <table className="table">
         <thead>
@@ -29,9 +46,10 @@ class MovieTable extends Component {
         </thead>
         <tbody>
           <TableBody
-            items={this.props.movies}
+            data={this.props.movies}
             onlLikeClick={this.props.onlLikeClick}
             onDelete={this.props.onlDelete}
+            columns={this.columns}
           />
         </tbody>
       </table>

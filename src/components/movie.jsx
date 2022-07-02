@@ -10,7 +10,6 @@ import _ from "lodash";
 class Movies extends Component {
   state = {
     movies: [],
-    // genres: getGenres(),
     genres: [],
     pageSize: 4,
     currentPage: 1,
@@ -41,31 +40,17 @@ class Movies extends Component {
     movies[index] = { ...movies[index] };
     movies[index].liked = !movies[index].liked;
     this.setState({ movies });
-    // const liked = !movie.liked;
-    // console.log(movie);
   };
 
   handdelPageChange = (page) => {
     this.setState({ currentPage: page });
-    // console.log("page changed", page);
   };
 
   handelGenreSelect = (genre) => {
     this.setState({ currentGenre: genre, currentPage: 1 });
-    // console.log("test", genre.name);
   };
 
   handelSort = (sortColumn) => {
-    // const sortColumn = { ...this.state.sortColumn };
-    // // sortColumn.order = "desc";
-    // if (sortColumn.path === path) {
-    //   sortColumn.order = sortColumn.order === "asc" ? "desc" : "asc";
-    // } else {
-    //   sortColumn.path = path;
-    //   sortColumn.order = "asc";
-    // }
-    // console.log(sortColumn);
-
     this.setState({ sortColumn });
   };
   render() {
@@ -102,13 +87,10 @@ class Movies extends Component {
           <ListGroup
             items={this.state.genres}
             selectedItem={this.state.currentGenre}
-            // textProperty="name"
-            // valuePropert="_id"
             onItemSelect={this.handelGenreSelect}
           />
         </div>
         <div className="col">
-          {/* {length <= 0 && <p>There is no movies! </p>}{" "} */}
           <p>Showing available {length} movies </p>
           <MovieTable
             movies={movies}
