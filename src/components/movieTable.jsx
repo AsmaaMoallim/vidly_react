@@ -5,7 +5,12 @@ import TableHeader from "./common/tableHeader";
 
 class MovieTable extends Component {
   state = {
-    columns: ["title", "genre.name", "numberInStock", "dailyRentalRate"],
+    columns: [
+      { dbName: "title", lable: "Title" },
+      { dbName: "genre.name", lable: "Genre" },
+      { dbName: "numberInStock", lable: "Stock" },
+      { dbName: "dailyRentalRate", lable: "Rate" },
+    ],
     emptyThCount: ["like", "deleteButton"],
   };
   render() {

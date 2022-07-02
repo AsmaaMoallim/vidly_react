@@ -65,6 +65,7 @@ class Movies extends Component {
     //   sortColumn.order = "asc";
     // }
     // console.log(sortColumn);
+
     this.setState({ sortColumn });
   };
   render() {
