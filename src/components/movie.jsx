@@ -55,16 +55,16 @@ class Movies extends Component {
     // console.log("test", genre.name);
   };
 
-  handelSort = (path) => {
-    const sortColumn = { ...this.state.sortColumn };
-    // sortColumn.order = "desc";
-    if (sortColumn.path === path) {
-      sortColumn.order = sortColumn.order === "asc" ? "desc" : "asc";
-    } else {
-      sortColumn.path = path;
-      sortColumn.order = "asc";
-    }
-    console.log(sortColumn);
+  handelSort = (sortColumn) => {
+    // const sortColumn = { ...this.state.sortColumn };
+    // // sortColumn.order = "desc";
+    // if (sortColumn.path === path) {
+    //   sortColumn.order = sortColumn.order === "asc" ? "desc" : "asc";
+    // } else {
+    //   sortColumn.path = path;
+    //   sortColumn.order = "asc";
+    // }
+    // console.log(sortColumn);
     this.setState({ sortColumn });
   };
   render() {
@@ -81,12 +81,7 @@ class Movies extends Component {
         [this.state.sortColumn.path],
         [this.state.sortColumn.order]
       )
-    )
-    // .sortBy(
-    //   filterdMovies,
-    //   [this.state.sortColumn.path],
-    //   [this.state.sortColumn.order]
-    // );
+    );
 
     const { length } = filterdMovies;
 
@@ -119,6 +114,7 @@ class Movies extends Component {
             onlLikeClick={this.handelLikeClick}
             onlDelete={this.handelDelete}
             onSort={this.handelSort}
+            sortColumn={this.state.sortColumn}
           />
           <Pagination
             itemsCount={length}
