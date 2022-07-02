@@ -4,7 +4,7 @@ import Pagination from "./common/pagination";
 import { paginate } from "../utils/paginate";
 import ListGroup from "./common/listGroup";
 import { getGenre, getGenres } from "../services/genreService";
-import MoiveTable from "./movieTable";
+import MovieTable from "./movieTable";
 import _ from "lodash";
 
 class Movies extends Component {
@@ -15,8 +15,8 @@ class Movies extends Component {
     pageSize: 4,
     currentPage: 1,
     currentGenre: {
-      _id: "1",
-      name: "Action",
+      _id: "",
+      name: "All Genres",
     },
     sortColumn: {
       path: "title",
@@ -47,7 +47,7 @@ class Movies extends Component {
 
   handdelPageChange = (page) => {
     this.setState({ currentPage: page });
-    console.log("page changed", page);
+    // console.log("page changed", page);
   };
 
   handelGenreSelect = (genre) => {
@@ -57,15 +57,14 @@ class Movies extends Component {
 
   handelSort = (path) => {
     const sortColumn = { ...this.state.sortColumn };
+    // sortColumn.order = "desc";
     if (sortColumn.path === path) {
       sortColumn.order = sortColumn.order === "asc" ? "desc" : "asc";
-      console.log("if", path, sortColumn);
     } else {
       sortColumn.path = path;
       sortColumn.order = "asc";
-      console.log("else", path);
     }
-
+    console.log(sortColumn);
     this.setState({ sortColumn });
   };
   render() {
@@ -76,11 +75,18 @@ class Movies extends Component {
           )
         : this.state.movies;
 
-    const sorted = _.sortBy(
-      filterdMovies,
-      [this.state.sortColumn.path],
-      [this.state.sortColumn.order]
-    );
+    const sorted = _.reverse(
+      _.orderBy(
+        filterdMovies,
+        [this.state.sortColumn.path],
+        [this.state.sortColumn.order]
+      )
+    )
+    // .sortBy(
+    //   filterdMovies,
+    //   [this.state.sortColumn.path],
+    //   [this.state.sortColumn.order]
+    // );
 
     const { length } = filterdMovies;
 
@@ -108,7 +114,7 @@ class Movies extends Component {
         <div className="col">
           {/* {length <= 0 && <p>There is no movies! </p>}{" "} */}
           <p>Showing available {length} movies </p>
-          <MoiveTable
+          <MovieTable
             movies={movies}
             onlLikeClick={this.handelLikeClick}
             onlDelete={this.handelDelete}
