@@ -1,13 +1,14 @@
 import "./App.css";
-import { getMovies } from "./services/movieService";
-import { getGenre } from "./services/genreService";
-import Movie from "./movies";
 import Movies from "./components/movie";
+import NavBar from "./components/navbar";
+import AppRoutes from "./components/appRoutes";
 
 function App() {
   return (
     <main className="container">
-      <Movies />
+      <NavBar />
+      {/* <Movies /> */}
+      <AppRoutes />
     </main>
   );
 }
