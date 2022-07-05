@@ -6,6 +6,7 @@ import ListGroup from "./common/listGroup";
 import { getGenre, getGenres } from "../services/genreService";
 import MovieTable from "./movieTable";
 import _ from "lodash";
+import { Outlet } from "react-router-dom";
 
 class Movies extends Component {
   state = {
@@ -104,6 +105,7 @@ class Movies extends Component {
             onPageChange={this.handdelPageChange}
             currentPage={this.state.currentPage}
           />
+          <Outlet />
         </div>
       </div>
     );
