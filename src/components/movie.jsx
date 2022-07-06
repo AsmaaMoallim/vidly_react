@@ -91,7 +91,7 @@ class Movies extends Component {
           />
         </div>
         <div className="col">
-          <p>Showing available {totalCount} movies </p>
+          <p>Showing availabel {totalCount} movies </p>
           <MovieTable
             movies={data}
             onlLikeClick={this.handelLikeClick}

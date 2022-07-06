@@ -10,14 +10,14 @@ class MovieTable extends Component {
   columns = [
     {
       path: "title",
-      lable: "Title",
+      label: "Title",
       content: (movie) => {
         return <Link to={movie._id}>{movie.title}</Link>;
       },
     },
-    { path: "genre.name", lable: "Genre" },
-    { path: "numberInStock", lable: "Stock" },
-    { path: "dailyRentalRate", lable: "Rate" },
+    { path: "genre.name", label: "Genre" },
+    { path: "numberInStock", label: "Stock" },
+    { path: "dailyRentalRate", label: "Rate" },
     {
       key: "like",
       content: (movie) => (
