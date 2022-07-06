@@ -91,7 +91,10 @@ class Movies extends Component {
           />
         </div>
         <div className="col">
-          <NavLink to="/movies/new" className="btn btn-primary mb-4">
+          <NavLink
+            to="/movies/new"
+            className="btn btn-primary mb-4"
+          >
             New Movie
           </NavLink>
 

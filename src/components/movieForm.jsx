@@ -7,14 +7,35 @@ import Form from "./common/form";
 const MovieForm = () => {
   const params = useParams();
   const navigate = useNavigate();
+  // console.log(getMovie(params.id));
 
   return <MovieFormC params={params} navigate={navigate} />;
 };
 
 class MovieFormC extends Form {
   state = {
-    data: { title: "", genre: "", numberInStock: "", rate: "" },
+    data: { title: "no", genre: "", numberInStock: "", rate: "" },
     errors: {},
+  };
+
+  fetchMovie = () => {
+    const { id } = this.props.params;
+    if (!id) return;
+
+    const movie = getMovie(id);
+    if (!movie) {
+      this.props.navigate("/notfound");
+    } else {
+      this.setState({
+        data: {
+          title: movie.title,
+          genre: movie.genre.name,
+          numberInStock: movie.numberInStock,
+          rate: movie.dailyRentalRate,
+        },
+      });
+    }
+    return;
   };
 
   // const moive = getMovie(id);
