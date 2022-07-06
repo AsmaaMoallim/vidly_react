@@ -1,5 +1,6 @@
 import React, { Component, useRef } from "react";
 import Input from "./common/input";
+import Joi from "joi-browser";
 
 class LoginForm extends Component {
   state = {
@@ -7,24 +8,45 @@ class LoginForm extends Component {
     errors: {},
   };
 
-  validte = () => {
+  schema = Joi.object({
+    username: Joi.string()
+      .alphanum()
+      .min(4)
+      .max(20)
+      .required()
+      .label("Username"),
+    password: Joi.string().min(4).max(20).required().label("Password"),
+  });
+
+  validteCustom = () => {
     const account = { ...this.state.account };
     const errors = {};
 
-    if (account.username.trim() === "") {
-      errors.username = "Username is required";
-    }
-    if (account.password.trim() === "") {
-      errors.password = "Password is required";
+    const options = { abortEarly: false };
+    const result = this.schema.validate(account, options);
+
+    console.log(result);
+    if (!result.error) return null;
+
+    for (let item of result.error.details) {
+      errors[item.path[0]] = item.message;
     }
 
-    return Object.keys(errors).length == 0 ? null : errors;
+    return errors;
+    // if (account.username.trim() === "") {
+    //   errors.username = "Username is required";
+    // }
+    // if (account.password.trim() === "") {
+    //   errors.password = "Password is required";
+    // }
+
+    // return Object.keys(errors).length == 0 ? null : errors;
   };
 
   handelSubmit = (e) => {
     e.preventDefault();
 
-    const errors = this.validte();
+    const errors = this.validteCustom();
     // console.log(errors);
     this.setState({ errors: errors || {} });
 
@@ -41,6 +63,16 @@ class LoginForm extends Component {
     }
   };
 
+  // validateProperty = ({ id, value }) => {
+  //   const obj = { [id]: value };
+  //   const key = id;
+  //   const rule = this.schema[key];
+  //   // const schema = Joi.object({ id: this.schema[id] });
+  //   console.log(rule);
+  //   // const { error } = schema.validate(obj);
+  //   // return error ? error.details[0].message : null;
+  // };
+
   handelChange = ({ target: input }) => {
     const errors = { ...this.state.errors };
     const errorMessage = this.validateProperty(input);
@@ -54,6 +86,8 @@ class LoginForm extends Component {
   };
 
   render() {
+    console.log(this.schema.keys());
+
     const { account, errors } = this.state;
 
     return (
