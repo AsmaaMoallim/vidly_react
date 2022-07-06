@@ -4,6 +4,7 @@ import { NavLink } from "react-router-dom";
 const NavBar = () => {
   return (
     <nav className="navbar navbar-expand-lg bg-light">
+      
       <div className="container-fluid">
         <a className="navbar-brand" href="#">
           Vidly

@@ -1,20 +1,34 @@
-import React from "react";
+import React, { useRef } from "react";
 
 const LoginForm = () => {
+  const usernameinput = useRef();
+
+  const handelSubmit = (e) => {
+    e.preventDefault();
+    usernameinput.current.focus();
+    console.log(usernameinput);
+  };
+
   return (
     <div className="form_page">
       <h1>Login</h1>
-      <form action="" className="mt-4">
+
+      <form onSubmit={handelSubmit} action="" className="mt-4">
         <div className="mb-3">
-          <lable htmlFor="username" className="form-lable">
+          <label htmlFor="username" className="form-label">
             Username
-          </lable>
-          <input id="username" type="text" className="form-control" />
+          </label>
+          <input
+            ref={usernameinput}
+            id="username"
+            type="text"
+            className="form-control"
+          />
         </div>
         <div className="mb-3">
-          <lable htmlFor="password" className="form-lable mb-1">
+          <label htmlFor="password" className="form-label mb-1">
             Password
-          </lable>
+          </label>
           <input id="password" type="text" className="form-control" />
         </div>
         <button className="btn btn-primary">Login</button>
