@@ -5,10 +5,12 @@ import Rentals from "./renals";
 import NotFound from "./notFound";
 import Movies from "./movie";
 import MovieForm from "./movieForm";
+import LoginForm from "./loginForm";
 
 const AppRoutes = () => {
   return (
     <Routes>
+      <Route path="/login" element={<LoginForm />} />
       <Route path="/movies" element={<Movies />} />
       <Route path="/movies/:id" element={<MovieForm />} />
       <Route path="/customers" element={<Customers />} />
