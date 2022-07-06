@@ -25,17 +25,32 @@ class LoginForm extends Component {
     e.preventDefault();
 
     const errors = this.validte();
-    console.log(errors);
+    // console.log(errors);
     this.setState({ errors: errors || {} });
-    
+
     if (errors) return;
     console.log("logged in");
   };
 
+  validateProperty = (input) => {
+    if (input.id == "username") {
+      if (input.value.trim() === "") return "Username is required";
+    }
+    if (input.id == "password") {
+      if (input.value.trim() === "") return "Password is required";
+    }
+  };
+
   handelChange = ({ target: input }) => {
+    const errors = { ...this.state.errors };
+    const errorMessage = this.validateProperty(input);
+    if (errorMessage) {
+      errors[input.id] = errorMessage;
+    } else delete errors[input.id];
+
     const account = { ...this.state.account };
     account[input.id] = input.value;
-    this.setState({ account });
+    this.setState({ account, errors });
   };
 
   render() {
