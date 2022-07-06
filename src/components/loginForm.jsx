@@ -1,40 +1,54 @@
-import React, { useRef } from "react";
+import React, { Component, useRef } from "react";
 
-const LoginForm = () => {
-  const usernameinput = useRef();
+class LoginForm extends Component {
+  state = { account: { username: "", password: "" } };
 
-  const handelSubmit = (e) => {
+  handelSubmit = (e) => {
     e.preventDefault();
-    usernameinput.current.focus();
-    console.log(usernameinput);
+    console.log("logged in");
   };
 
-  return (
-    <div className="form_page">
-      <h1>Login</h1>
+  handelChange = (e) => {
+    const account = { ...this.state.account };
+    account[e.target.id] = e.target.value;
+    this.setState({ account });
+  };
 
-      <form onSubmit={handelSubmit} action="" className="mt-4">
-        <div className="mb-3">
-          <label htmlFor="username" className="form-label">
-            Username
-          </label>
-          <input
-            ref={usernameinput}
-            id="username"
-            type="text"
-            className="form-control"
-          />
-        </div>
-        <div className="mb-3">
-          <label htmlFor="password" className="form-label mb-1">
-            Password
-          </label>
-          <input id="password" type="text" className="form-control" />
-        </div>
-        <button className="btn btn-primary">Login</button>
-      </form>
-    </div>
-  );
-};
+  render() {
+    return (
+      <div className="form_page">
+        <h1>Login</h1>
+
+        <form onSubmit={this.handelSubmit} action="" className="mt-4">
+          <div className="mb-3">
+            <label htmlFor="username" className="form-label">
+              Username
+            </label>
+            <input
+              onChange={this.handelChange}
+              value={this.state.account.username}
+              autoFocus
+              id="username"
+              type="text"
+              className="form-control"
+            />
+          </div>
+          <div className="mb-3">
+            <label htmlFor="password" className="form-label mb-1">
+              Password
+            </label>
+            <input
+              onChange={this.handelChange}
+              id="password"
+              type="text"
+              className="form-control"
+            />
+          </div>
+          <button className="btn btn-primary">Login</button>
+        </form>
+      </div>
+    );
+  }
+}
 
 export default LoginForm;
