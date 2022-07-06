@@ -1,4 +1,5 @@
 import React, { Component, useRef } from "react";
+import Input from "./common/input";
 
 class LoginForm extends Component {
   state = { account: { username: "", password: "" } };
@@ -8,42 +9,32 @@ class LoginForm extends Component {
     console.log("logged in");
   };
 
-  handelChange = (e) => {
+  handelChange = ({ target: input }) => {
     const account = { ...this.state.account };
-    account[e.target.id] = e.target.value;
+    account[input.id] = input.value;
     this.setState({ account });
   };
 
   render() {
+    const { account } = this.state;
+
     return (
       <div className="form_page">
         <h1>Login</h1>
 
         <form onSubmit={this.handelSubmit} action="" className="mt-4">
-          <div className="mb-3">
-            <label htmlFor="username" className="form-label">
-              Username
-            </label>
-            <input
-              onChange={this.handelChange}
-              value={this.state.account.username}
-              autoFocus
-              id="username"
-              type="text"
-              className="form-control"
-            />
-          </div>
-          <div className="mb-3">
-            <label htmlFor="password" className="form-label mb-1">
-              Password
-            </label>
-            <input
-              onChange={this.handelChange}
-              id="password"
-              type="text"
-              className="form-control"
-            />
-          </div>
+          <Input
+            autoFocus
+            onChange={this.handelChange}
+            value={account.username}
+            id="username"
+          />
+          <Input
+            autoFocus
+            onChange={this.handelChange}
+            value={account.password}
+            id="password"
+          />
           <button className="btn btn-primary">Login</button>
         </form>
       </div>
