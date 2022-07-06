@@ -6,22 +6,19 @@ import Form from "./common/form";
 
 const MovieForm = () => {
   const params = useParams();
+  const navigate = useNavigate();
 
-  return <MovieFormC params={params} />;
+  return <MovieFormC params={params} navigate={navigate} />;
 };
 
 class MovieFormC extends Form {
   state = {
-    data: { title: "", genre: "" },
+    data: { title: "", genre: "", numberInStock: "", rate: "" },
     errors: {},
   };
-  // componentDidMount() {
-  //   const { id } = Hooks();
-  // }
 
   // const moive = getMovie(id);
   // console.log(movie);
-  // navigate = useNavigate();
 
   // const handelSave = (e) => {
   //   e.preventDefault();
@@ -30,7 +27,12 @@ class MovieFormC extends Form {
 
   titleSchema = Joi.string().email().required().label("Title");
   genreSchema = Joi.string().min(5).max(20).required().label("Genre");
-  // nameSchema = Joi.string().min(4).max(20).required().label("name");
+  numberInStockSchema = Joi.number()
+    .min(4)
+    .max(20)
+    .required()
+    .label("Number In Stock");
+  rateSchema = Joi.number().min(4).max(10).required().label("Rate");
 
   schema = Joi.object({
     title: this.titleSchema,
@@ -38,9 +40,9 @@ class MovieFormC extends Form {
     // name: this.nameSchema,
   });
 
-  doSubmit = (e) => {
-    e.preventDefault();
-    // this.navigate("/movies");
+  doSubmit = () => {
+    // e.preventDefault();
+    this.props.navigate("/movies");
   };
   render() {
     return (
@@ -52,7 +54,7 @@ class MovieFormC extends Form {
             {this.renderInput("genre", "Genere")}
             {this.renderInput("numberInStock", "Number in Stock")}
             {this.renderInput("rate", "Rate")}
-            {this.renderButton("Save")}
+            {this.renderButton("Save", { onClick: this.doSubmit })}
           </form>
         </div>
         {/* <button onClick={handelSave} className="btn btn-primary mx-2">
