@@ -8,6 +8,7 @@ function App() {
     <main className="container">
       <NavBar />
       {/* <Movies /> */}
+      
       <AppRoutes />
     </main>
   );

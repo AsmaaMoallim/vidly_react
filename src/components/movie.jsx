@@ -6,7 +6,7 @@ import ListGroup from "./common/listGroup";
 import { getGenre, getGenres } from "../services/genreService";
 import MovieTable from "./movieTable";
 import _ from "lodash";
-import { Outlet } from "react-router-dom";
+import { NavLink, Outlet } from "react-router-dom";
 
 class Movies extends Component {
   state = {
@@ -91,6 +91,10 @@ class Movies extends Component {
           />
         </div>
         <div className="col">
+          <NavLink to="/movies/new" className="btn btn-primary mb-4">
+            New Movie
+          </NavLink>
+
           <p>Showing availabel {totalCount} movies </p>
           <MovieTable
             movies={data}
