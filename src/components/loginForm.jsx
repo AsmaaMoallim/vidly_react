@@ -8,14 +8,17 @@ class LoginForm extends Form {
     errors: {},
   };
 
+  usernameSchema = Joi.string()
+    .alphanum()
+    .min(4)
+    .max(20)
+    .required()
+    .label("Username");
+  passwordSchema = Joi.string().min(4).max(20).required().label("Password");
+
   schema = Joi.object({
-    username: Joi.string()
-      .alphanum()
-      .min(4)
-      .max(20)
-      .required()
-      .label("Username"),
-    password: Joi.string().min(4).max(20).required().label("Password"),
+    username: this.usernameSchema,
+    password: this.usernameSchema,
   });
 
   doSubmit = () => {
@@ -24,14 +27,12 @@ class LoginForm extends Form {
   };
 
   render() {
-    // console.log(this.schema.keys());
-
     return (
       <div className="form_page">
         <h1>Login</h1>
         <form onSubmit={this.handelSubmit} action="" className="mt-4">
-          {this.renderInput("username", "Username", {autoFocus: true})}
-          {this.renderInput("password", "Password", {type:"password"})}
+          {this.renderInput("username", "Username", { autoFocus: true })}
+          {this.renderInput("password", "Password", { type: "password" })}
           {this.renderButton("Login")}
         </form>
       </div>

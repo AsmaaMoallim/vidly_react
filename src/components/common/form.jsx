@@ -22,34 +22,15 @@ class Form extends Component {
     }
 
     return errors;
-    // if (data.username.trim() === "") {
-    //   errors.username = "Username is required";
-    // }
-    // if (data.password.trim() === "") {
-    //   errors.password = "Password is required";
-    // }
-
-    // return Object.keys(errors).length == 0 ? null : errors;
   };
 
-  validateProperty = (input) => {
-    if (input.id == "username") {
-      if (input.value.trim() === "") return "Username is required";
-    }
-    if (input.id == "password") {
-      if (input.value.trim() === "") return "Password is required";
-    }
-  };
 
-  // validateProperty = ({ id, value }) => {
-  //   const obj = { [id]: value };
-  //   const key = id;
-  //   const rule = this.schema[key];
-  //   // const schema = Joi.object({ id: this.schema[id] });
-  //   console.log(rule);
-  //   // const { error } = schema.validate(obj);
-  //   // return error ? error.details[0].message : null;
-  // };
+  validateProperty = ({ id, value }) => {
+    const obj = { [id]: value };
+    const schema = Joi.object({ [id]: this[`${id}Schema`] });
+    const { error } = schema.validate(obj);
+    return error ? error.details[0].message : null;
+  };
 
   handelSubmit = (e) => {
     e.preventDefault();
@@ -81,7 +62,7 @@ class Form extends Component {
     );
   }
 
-  renderInput(id, label, autoFocus = false, type="text") {
+  renderInput(id, label, autoFocus = false, type = "text") {
     const { data, errors } = this.state;
 
     return (
