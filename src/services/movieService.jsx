@@ -89,6 +89,9 @@ export function deleteMovie(id) {
 }
 
 export async function saveMovie(movie) {
+  // console.log(movie);
+  // return http.put(setEndPointPath(`/movies/${movie._id}`), movie);
+
   // const { data } = await genresAPI.getGenres();
   let movieInDb = movies.find((m) => m._id === movie._id) || {};
   movieInDb.title = movie.title;

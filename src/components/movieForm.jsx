@@ -76,17 +76,20 @@ class MovieFormC extends Form {
     const movieId = this.props.params.id;
     if (movieId === "new") return;
 
-    const {data : movie} = await getMovie(movieId);
-    if (!movie) return this.props.navigate("/notfound", { replace: true });
-
-    this.setState({ data: this.mapToViewModel(movie) });
+    try {
+      const { data: movie } = await getMovie(movieId);
+      this.setState({ data: this.mapToViewModel(movie) });
+    } catch (ex) {
+      if (ex.response && ex.response.status === 404)
+         this.props.navigate("/notfound", { replace: true });
+    }
 
     // this.fetchMovie();
   }
 
   mapToViewModel = (movie) => {
     return {
-      _id: movie._id,
+      // _id: movie._id,
       title: movie.title,
       genreID: movie.genre._id,
       numberInStock: movie.numberInStock,
