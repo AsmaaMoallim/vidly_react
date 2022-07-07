@@ -15,7 +15,7 @@ const MovieForm = () => {
 
 class MovieFormC extends Form {
   state = {
-    data: { title: "", genreID: "", numberInStock: "", dailyRentalRate: "" },
+    data: { title: "", genreId: "", numberInStock: "", dailyRentalRate: "" },
     genres: [],
     errors: {},
   };
@@ -49,7 +49,7 @@ class MovieFormC extends Form {
   // };
 
   titleSchema = Joi.string().required().label("Title");
-  genreIDSchema = Joi.string().required().label("Genre");
+  genreIdSchema = Joi.string().required().label("Genre");
   numberInStockSchema = Joi.number()
     .min(0)
     .max(100)
@@ -64,7 +64,7 @@ class MovieFormC extends Form {
   schema = Joi.object({
     _id: Joi.string(),
     title: this.titleSchema,
-    genreID: this.genreIDSchema,
+    genreId: this.genreIdSchema,
     numberInStock: this.numberInStockSchema,
     dailyRentalRate: this.dailyRentalRateSchema,
   });
@@ -96,18 +96,18 @@ class MovieFormC extends Form {
 
   mapToViewModel = (movie) => {
     return {
-      // _id: movie._id,
+      _id: movie._id,
       title: movie.title,
-      genreID: movie.genre._id,
+      genreId: movie.genre._id,
       numberInStock: movie.numberInStock,
       dailyRentalRate: movie.dailyRentalRate,
     };
   };
 
-  doSubmit = () => {
-    saveMovie(this.state.data);
+  doSubmit = async () => {
+    await saveMovie(this.state.data);
     // e.preventDefault();
-    this.props.navigate("/movies");
+    return this.props.navigate("/movies");
   };
 
   render() {
@@ -117,7 +117,7 @@ class MovieFormC extends Form {
           <h1>Movie Form {this.props.params.id}</h1>
           <form onSubmit={this.handelSubmit} action="" className="mt-4">
             {this.renderInput("title", "Title", { autoFocus: true })}
-            {this.renderSelect("genreID", "Genere", this.state.genres)}
+            {this.renderSelect("genreId", "Genere", this.state.genres)}
             {this.renderInput("numberInStock", "Number in Stock", {
               type: "number",
             })}

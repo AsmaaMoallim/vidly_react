@@ -88,21 +88,27 @@ export function deleteMovie(id) {
   // return movies;
 }
 
-export async function saveMovie(movie) {
-  // console.log(movie);
-  // return http.put(setEndPointPath(`/movies/${movie._id}`), movie);
-
-  // const { data } = await genresAPI.getGenres();
-  let movieInDb = movies.find((m) => m._id === movie._id) || {};
-  movieInDb.title = movie.title;
-  movieInDb.genre = genresAPI.genres.find((g) => g._id === movie.genreID);
-  movieInDb.numberInStock = movie.numberInStock;
-  movieInDb.dailyRentalRate = movie.dailyRentalRate;
-
-  if (!movieInDb._id) {
-    movieInDb._id = Date.now().toString();
-    movies.push(movieInDb);
+export function saveMovie(movie) {
+  // console.log(movie._id);
+  if (movie._id) {
+    const body = { ...movie };
+    delete body._id;
+    console.log(body);
+    return http.put(setEndPointPath(`/movies/${movie._id}`), body);
   }
+  return http.post(setEndPointPath(`/movies/`), movie);
 
-  return movieInDb;
+  // // const { data } = await genresAPI.getGenres();
+  // let movieInDb = movies.find((m) => m._id === movie._id) || {};
+  // movieInDb.title = movie.title;
+  // movieInDb.genre = genresAPI.genres.find((g) => g._id === movie.genreId);
+  // movieInDb.numberInStock = movie.numberInStock;
+  // movieInDb.dailyRentalRate = movie.dailyRentalRate;
+
+  // if (!movieInDb._id) {
+  //   movieInDb._id = Date.now().toString();
+  //   movies.push(movieInDb);
+  // }
+
+  // return movieInDb;
 }
