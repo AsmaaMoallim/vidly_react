@@ -6,9 +6,9 @@ import AppRoutes from "./components/appRoutes";
 function App() {
   return (
     <main className="container">
-      <NavBar />
+      <NavBar  />
       {/* <Movies /> */}
-      
+
       <AppRoutes />
     </main>
   );

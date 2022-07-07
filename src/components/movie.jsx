@@ -7,6 +7,7 @@ import { getGenre, getGenres } from "../services/genreService";
 import MovieTable from "./movieTable";
 import _ from "lodash";
 import { NavLink, Outlet } from "react-router-dom";
+import SearchBox from "./common/searchBox";
 
 class Movies extends Component {
   state = {
@@ -22,6 +23,7 @@ class Movies extends Component {
       path: "title",
       order: "asc",
     },
+    searchQuery: "",
   };
 
   componentDidMount() {
@@ -48,20 +50,33 @@ class Movies extends Component {
   };
 
   handelGenreSelect = (genre) => {
-    this.setState({ currentGenre: genre, currentPage: 1 });
+    this.setState({ currentGenre: genre, currentPage: 1, searchQuery: "" });
   };
 
   handelSort = (sortColumn) => {
     this.setState({ sortColumn });
   };
 
+  handelSearch = (query) => {
+    this.setState({ searchQuery: query, currentGenre: "", currentPage: 1 });
+  };
+
   getPageData = () => {
-    const filterdMovies =
-      this.state.currentGenre && this.state.currentGenre._id
-        ? this.state.movies.filter(
-            (movie) => movie.genre._id === this.state.currentGenre._id
-          )
-        : this.state.movies;
+    let filterdMovies = this.state.movies;
+    if (this.state.searchQuery) {
+      filterdMovies = filterdMovies.filter((movie) =>
+        movie.title
+          .toLowerCase()
+          .startsWith(this.state.searchQuery.toLowerCase())
+      );
+    } else {
+      filterdMovies =
+        this.state.currentGenre && this.state.currentGenre._id
+          ? this.state.movies.filter(
+              (movie) => movie.genre._id === this.state.currentGenre._id
+            )
+          : this.state.movies;
+    }
 
     const sorted = _.orderBy(
       filterdMovies,
@@ -80,7 +95,8 @@ class Movies extends Component {
 
   render() {
     const { totalCount, data } = this.getPageData();
-    if (totalCount <= 0) return <p>There is no movies! </p>;
+    if (this.state.currentGenre && totalCount <= 0)
+      return <p>There is no movies! </p>;
     return (
       <div className="row">
         <div className="col-2">
@@ -91,12 +107,14 @@ class Movies extends Component {
           />
         </div>
         <div className="col">
-          <NavLink
-            to="/movies/new"
-            className="btn btn-primary mb-4"
-          >
+          <NavLink to="/movies/new" className="btn btn-primary mb-1">
             New Movie
           </NavLink>
+
+          <SearchBox
+            value={this.state.searchQuery}
+            onChange={this.handelSearch}
+          />
 
           <p>Showing availabel {totalCount} movies </p>
           <MovieTable
