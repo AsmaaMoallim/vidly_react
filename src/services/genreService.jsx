@@ -1,5 +1,5 @@
 import Config from "../config.json";
-import http from "./httpServices";
+import http, {setEndPointPath} from "./httpServices";
 
 export const genres = [
   { _id: "5b21ca3eeb7f6fbccd471818", name: "Action" },
@@ -8,6 +8,6 @@ export const genres = [
 ];
 
 export async function getGenres() {
-  return http.get(`${Config.apiEndPoint}/genres`);
+  return http.get(setEndPointPath("/genres"));
   // return genres.filter((g) => g);
 }

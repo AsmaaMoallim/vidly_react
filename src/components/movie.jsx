@@ -27,10 +27,13 @@ class Movies extends Component {
   };
 
   async componentDidMount() {
-    const {data} = await getGenres()
-    console.log(data);
-    const genres = [{ _id: "", path: "", name: "All Genres" }, ...data];
-    this.setState({ movies: getMovies(), genres });
+    const { data: dbGenres } = await getGenres();
+    // console.log(dbGenres);
+    const genres = [{ _id: "", path: "", name: "All Genres" }, ...dbGenres];
+    const { data: dbMovies } = await getMovies();
+    // console.log(dbMovies);
+
+    this.setState({ movies: { ...dbMovies }, genres });
   }
 
   handelDelete = (movie) => {

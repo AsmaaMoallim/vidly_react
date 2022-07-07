@@ -1,26 +1,26 @@
 import React, { Component } from "react";
 import { getMovies } from "./services/movieService";
 
-class Movie extends Component {
-  state = {
-    movies: getMovies(),
-  };
-  render() {
+// class Movie extends Component {
+//   state = {
+//     movies: getMovies(),
+//   };
+//   render() {
     
-    return (
-      <tr>
-        <td>{this.movies}</td>
-      </tr>
-    );
-    // return this.movies.map((movie) => (
-    //   <tr>
-    //     <td>{movie.title}</td>
-    //     <td>{movie.genre.name}</td>
-    //     <td>{movie.numberInStock}</td>
-    //     <td>{movie.dailyRentalRate}</td>
-    //   </tr>
-    // ));
-  }
-}
+//     return (
+//       <tr>
+//         <td>{this.movies}</td>
+//       </tr>
+//     );
+//     // return this.movies.map((movie) => (
+//     //   <tr>
+//     //     <td>{movie.title}</td>
+//     //     <td>{movie.genre.name}</td>
+//     //     <td>{movie.numberInStock}</td>
+//     //     <td>{movie.dailyRentalRate}</td>
+//     //   </tr>
+//     // ));
+//   }
+// }
 
-export default Movie;
+// export default Movie;

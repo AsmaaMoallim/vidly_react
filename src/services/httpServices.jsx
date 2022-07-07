@@ -1,4 +1,5 @@
 import axios from "axios";
+import Config from "../config.json";
 // import { toast } from "react-toastify";
 axios.interceptors.response.use(null, (err) => {
   const expected =
@@ -11,6 +12,12 @@ axios.interceptors.response.use(null, (err) => {
 
   return Promise.reject(err);
 });
+
+const endpointbase = Config.apiEndPoint;
+
+export const setEndPointPath = (path) =>{
+  return `${endpointbase}${path}`
+}
 
 export default {
   get: axios.get,
