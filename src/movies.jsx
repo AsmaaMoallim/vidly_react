@@ -6,6 +6,7 @@ class Movie extends Component {
     movies: getMovies(),
   };
   render() {
+    
     return (
       <tr>
         <td>{this.movies}</td>

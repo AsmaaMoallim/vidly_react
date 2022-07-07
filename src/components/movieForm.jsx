@@ -1,8 +1,9 @@
 import React from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import Joi from "joi-browser";
-import { getMovie } from "../services/movieService";
+import { getMovie, saveMovie } from "../services/movieService";
 import Form from "./common/form";
+import { getGenres } from "../services/genreService";
 
 const MovieForm = () => {
   const params = useParams();
@@ -14,29 +15,30 @@ const MovieForm = () => {
 
 class MovieFormC extends Form {
   state = {
-    data: { title: "no", genre: "", numberInStock: "", rate: "" },
+    data: { title: "", genreID: "", numberInStock: "", dailyRentalRate: "" },
+    genres: [],
     errors: {},
   };
 
-  fetchMovie = () => {
-    const { id } = this.props.params;
-    if (!id) return;
+  // fetchMovie = () => {
+  //   const { id } = this.props.params;
+  //   if (!id) return;
 
-    const movie = getMovie(id);
-    if (!movie) {
-      this.props.navigate("/notfound");
-    } else {
-      this.setState({
-        data: {
-          title: movie.title,
-          genre: movie.genre.name,
-          numberInStock: movie.numberInStock,
-          rate: movie.dailyRentalRate,
-        },
-      });
-    }
-    return;
-  };
+  //   const movie = getMovie(id);
+  //   if (!movie) {
+  //     this.props.navigate("/notfound");
+  //   } else {
+  //     this.setState({
+  //       data: {
+  //         title: movie.title,
+  //         genre: movie.genre.name,
+  //         numberInStock: movie.numberInStock,
+  //         rate: movie.dailyRentalRate,
+  //       },
+  //     });
+  //   }
+  //   return;
+  // };
 
   // const moive = getMovie(id);
   // console.log(movie);
@@ -46,25 +48,58 @@ class MovieFormC extends Form {
   //   navigate("/movies");
   // };
 
-  titleSchema = Joi.string().email().required().label("Title");
-  genreSchema = Joi.string().min(5).max(20).required().label("Genre");
+  titleSchema = Joi.string().required().label("Title");
+  genreIDSchema = Joi.string().required().label("Genre");
   numberInStockSchema = Joi.number()
-    .min(4)
-    .max(20)
+    .min(0)
+    .max(100)
     .required()
     .label("Number In Stock");
-  rateSchema = Joi.number().min(4).max(10).required().label("Rate");
+  dailyRentalRateSchema = Joi.number()
+    .min(0)
+    .max(10)
+    .required()
+    .label("Daily Rental Rate");
 
   schema = Joi.object({
+    _id: Joi.string(),
     title: this.titleSchema,
-    genre: this.genreSchema,
-    // name: this.nameSchema,
+    genreID: this.genreIDSchema,
+    numberInStock: this.numberInStockSchema,
+    dailyRentalRate: this.dailyRentalRateSchema,
   });
 
+  componentDidMount() {
+    const genres = getGenres();
+    this.setState({ genres });
+
+    const movieId = this.props.params.id;
+    if (movieId === "new") return;
+
+    const movie = getMovie(movieId);
+    if (!movie) return this.props.navigate("/notfound", { replace: true });
+
+    this.setState({ data: this.mapToViewModel(movie) });
+
+    // this.fetchMovie();
+  }
+
+  mapToViewModel = (movie) => {
+    return {
+      _id: movie._id,
+      title: movie.title,
+      genreID: movie.genre._id,
+      numberInStock: movie.numberInStock,
+      dailyRentalRate: movie.dailyRentalRate,
+    };
+  };
+
   doSubmit = () => {
+    saveMovie(this.state.data);
     // e.preventDefault();
     this.props.navigate("/movies");
   };
+
   render() {
     return (
       <div>
@@ -72,10 +107,12 @@ class MovieFormC extends Form {
           <h1>Movie Form {this.props.params.id}</h1>
           <form onSubmit={this.handelSubmit} action="" className="mt-4">
             {this.renderInput("title", "Title", { autoFocus: true })}
-            {this.renderInput("genre", "Genere")}
-            {this.renderInput("numberInStock", "Number in Stock")}
-            {this.renderInput("rate", "Rate")}
-            {this.renderButton("Save", { onClick: this.doSubmit })}
+            {this.renderSelect("genreID", "Genere", this.state.genres)}
+            {this.renderInput("numberInStock", "Number in Stock", {
+              type: "number",
+            })}
+            {this.renderInput("dailyRentalRate", "Rate")}
+            {this.renderButton("Save")}
           </form>
         </div>
         {/* <button onClick={handelSave} className="btn btn-primary mx-2">
