@@ -33,15 +33,31 @@ class Movies extends Component {
     const { data: dbMovies } = await getMovies();
     // console.log(dbMovies);
 
-    this.setState({ movies: { ...dbMovies }, genres });
+    this.setState({ movies: dbMovies , genres });
   }
 
-  handelDelete = (movie) => {
-    const movies = deleteMovie(movie._id);
+  handelDelete = async (movie) => {
+    const orginalMovies = this.state.movies;
+
+    console.log(orginalMovies);
+    const movies = orginalMovies.filter((m) => m._id !== movie._id);
+
     this.setState({
       movies,
     });
+    try {
+      await deleteMovie(movie._id);
+    } catch (ex) {
+      if (ex.response && ex.response.status === "404") {
+        console.log("this movie has been already deleted");
+      }
+
+      this.setState({
+        orginalMovies,
+      });
+    }
   };
+
   handelLikeClick = (movie) => {
     const movies = [...this.state.movies];
     const index = movies.indexOf(movie);

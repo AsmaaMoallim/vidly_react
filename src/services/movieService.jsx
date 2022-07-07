@@ -74,14 +74,18 @@ export function getMovies() {
 }
 
 export function getMovie(id) {
-  return movies.find((movie) => movie._id == id);
+  return http.get(setEndPointPath(`/movies/${id}`));
+
+  // return movies.find((movie) => movie._id == id);
 }
 
 export function deleteMovie(id) {
-  const movieItem = movies.find((movie) => movie._id == id);
-  movies = movies.filter((movie) => movie._id != movieItem._id);
-  console.log(movies);
-  return movies;
+  return http.delete(setEndPointPath(`/movies/${id}`));
+
+  // const movieItem = movies.find((movie) => movie._id == id);
+  // movies = movies.filter((movie) => movie._id != movieItem._id);
+  // console.log(movies);
+  // return movies;
 }
 
 export async function saveMovie(movie) {

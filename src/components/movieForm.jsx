@@ -69,14 +69,14 @@ class MovieFormC extends Form {
     dailyRentalRate: this.dailyRentalRateSchema,
   });
 
-  componentDidMount() {
-    const genres = getGenres();
+  async componentDidMount() {
+    const { data: genres } = await getGenres();
     this.setState({ genres });
 
     const movieId = this.props.params.id;
     if (movieId === "new") return;
 
-    const movie = getMovie(movieId);
+    const {data : movie} = await getMovie(movieId);
     if (!movie) return this.props.navigate("/notfound", { replace: true });
 
     this.setState({ data: this.mapToViewModel(movie) });
