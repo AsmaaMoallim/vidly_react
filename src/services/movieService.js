@@ -253,7 +253,8 @@ export function deleteMovie(id) {
   return movies;
 }
 
-export function saveMovie(movie) {
+export async function saveMovie(movie) {
+  // const { data } = await genresAPI.getGenres();
   let movieInDb = movies.find((m) => m._id === movie._id) || {};
   movieInDb.title = movie.title;
   movieInDb.genre = genresAPI.genres.find((g) => g._id === movie.genreID);

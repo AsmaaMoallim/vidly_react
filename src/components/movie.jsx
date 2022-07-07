@@ -26,8 +26,10 @@ class Movies extends Component {
     searchQuery: "",
   };
 
-  componentDidMount() {
-    const genres = [{ _id: "", path: "", name: "All Genres" }, ...getGenres()];
+  async componentDidMount() {
+    const {data} = await getGenres()
+    console.log(data);
+    const genres = [{ _id: "", path: "", name: "All Genres" }, ...data];
     this.setState({ movies: getMovies(), genres });
   }
 
