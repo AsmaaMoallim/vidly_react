@@ -1,18 +1,21 @@
 import "./App.css";
-import Movies from "./components/movie";
 import NavBar from "./components/navbar";
 import AppRoutes from "./components/appRoutes";
 import { ToastContainer } from "react-toastify";
+import React from "react";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   return (
-    <main className="container">
+    <React.Fragment>
       <ToastContainer />
-      <NavBar />
-      {/* <Movies /> */}
+      <main className="container">
+        <NavBar />
+        {/* <Movies /> */}
 
-      <AppRoutes />
-    </main>
+        <AppRoutes />
+      </main>
+    </React.Fragment>
   );
 }
 

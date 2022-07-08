@@ -2,6 +2,7 @@ import React from "react";
 import Joi from "joi-browser";
 import Form from "./common/form";
 import { register } from "../services/usersService";
+import { toast } from "react-toastify";
 
 class RegisterForm extends Form {
   state = {
@@ -21,8 +22,13 @@ class RegisterForm extends Form {
 
   doSubmit = async () => {
     // Call the server
-    await register(this.state.data);
-    console.log("registered in");
+    await register(this.state.data).then(() => console.log("registered in")).catch(ex=> {
+      if(ex.response && ex.response.status === 400){
+        // const errors = {...this.state.errors}
+        // errors
+        toast.error(ex.response.data);
+      }
+    });
   };
 
   render() {
