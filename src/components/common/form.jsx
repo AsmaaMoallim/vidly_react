@@ -62,8 +62,9 @@ class Form extends Component {
     );
   }
 
-  renderInput(id, label, autoFocus = false, type = "text") {
+  renderInput(id, label, type = "text", autoFocus = false) {
     const { data, errors } = this.state;
+    // console.log(autofocus, type);
     return (
       <Input
         type={type}
@@ -76,9 +77,8 @@ class Form extends Component {
       />
     );
   }
-  renderSelect(name, label, options ) {
-        
-    const { data, errors} = this.state;
+  renderSelect(name, label, options) {
+    const { data, errors } = this.state;
 
     return (
       <Select

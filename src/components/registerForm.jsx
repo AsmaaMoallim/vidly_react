@@ -1,6 +1,7 @@
 import React from "react";
 import Joi from "joi-browser";
 import Form from "./common/form";
+import { register } from "../services/usersService";
 
 class RegisterForm extends Form {
   state = {
@@ -18,8 +19,9 @@ class RegisterForm extends Form {
     name: this.nameSchema,
   });
 
-  doSubmit = () => {
+  doSubmit = async () => {
     // Call the server
+    await register(this.state.data);
     console.log("registered in");
   };
 
@@ -28,8 +30,10 @@ class RegisterForm extends Form {
       <div className="form_page">
         <h1>Register</h1>
         <form onSubmit={this.handelSubmit} action="" className="mt-4">
-          {this.renderInput("username", "Username", { autoFocus: true })}
-          {this.renderInput("password", "Password", { type: "password" })}
+          {this.renderInput("username", "Username", "text", {
+            autoFocus: true,
+          })}
+          {this.renderInput("password", "Password", "password")}
           {this.renderInput("name", "Name")}
           {this.renderButton("Register")}
         </form>
