@@ -29,27 +29,19 @@ class RegisterFormC extends Form {
   doSubmit = async () => {
     // Call the server
 
-    try {
-      await register(this.state.data).then((data) => {
+    await register(this.state.data)
+      .then((data) => {
         localStorage.setItem("token", data.headers["x-auth-token"]);
         console.log("registerd ");
         return this.props.navigate("/movies");
+      })
+      .catch((ex) => {
+        if (ex.response && ex.response.status === 400) {
+          const errors = { ...this.state.errors };
+          errors.username = ex.response.data;
+          this.setState({ errors });
+        }
       });
-    } catch (ex) {
-      if (ex.response && ex.response.status === 400) {
-        const errors = { ...this.state.errors };
-        errors.username = ex.response.data;
-        this.setState({ errors });
-      }
-    }
-    //   .then((data) => {
-    //     // return console.log(data.headers["x-auth-token"]);
-    //   })
-    //   .catch((ex) => {
-    //       // toast.error(ex.response.data);
-    //       // console.log(ex.response);
-    //     }
-    //   });
   };
 
   render() {
