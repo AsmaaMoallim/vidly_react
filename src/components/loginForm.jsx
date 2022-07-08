@@ -1,6 +1,7 @@
 import React from "react";
 import Joi from "joi-browser";
 import Form from "./common/form";
+import { Login } from "../services/authService";
 
 class LoginForm extends Form {
   state = {
@@ -8,22 +9,25 @@ class LoginForm extends Form {
     errors: {},
   };
 
-  usernameSchema = Joi.string()
-    .alphanum()
-    .min(4)
-    .max(20)
-    .required()
-    .label("Username");
-  passwordSchema = Joi.string().min(4).max(20).required().label("Password");
+  usernameSchema = Joi.string().email().required().label("Username");
+  passwordSchema = Joi.string().min(8).max(20).required().label("Password");
 
   schema = Joi.object({
     username: this.usernameSchema,
-    password: this.usernameSchema,
+    password: this.passwordSchema,
   });
 
-  doSubmit = () => {
+  doSubmit = async () => {
     // Call the server
-    console.log("logged in");
+    try {
+      await Login(this.state.data);
+      console.log("logged in");
+    } catch (ex) {
+      if (ex.response && ex.response.status === 400) {
+        
+        console.log(ex.response.data);
+      }
+    }
   };
 
   render() {
@@ -31,8 +35,10 @@ class LoginForm extends Form {
       <div className="form_page">
         <h1>Login</h1>
         <form onSubmit={this.handelSubmit} action="" className="mt-4">
-          {this.renderInput("username", "Username", { autoFocus: true })}
-          {this.renderInput("password", "Password", { type: "password" })}
+          {this.renderInput("username", "Username", "text", {
+            autoFocus: true,
+          })}
+          {this.renderInput("password", "Password", "password")}
           {this.renderButton("Login")}
         </form>
       </div>
