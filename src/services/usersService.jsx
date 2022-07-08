@@ -4,9 +4,9 @@ import http, { setEndPointPath } from "./httpServices";
 //   return http.get(setEndPointPath("/users"));
 // }
 
-// export function getUser(id) {
-//   return http.get(setEndPointPath(`/users/${id}`));
-// }
+export function getUser(id) {
+  return http.get(setEndPointPath(`/users/${id}`));
+}
 
 // export function deleteUser(id) {
 //   return http.delete(setEndPointPath(`/users/${id}`));
