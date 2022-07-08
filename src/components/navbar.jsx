@@ -5,9 +5,9 @@ const NavBar = () => {
   return (
     <nav className="navbar navbar-expand-lg bg-light mb-3">
       <div className="container-fluid">
-        <a className="navbar-brand" href="#">
+        <NavLink className="navbar-brand" to="/movies">
           Vidly
-        </a>
+        </NavLink>
         <div className="collapse navbar-collapse" id="navbarNav">
           <ul className="navbar-nav">
             <li className="nav-item">

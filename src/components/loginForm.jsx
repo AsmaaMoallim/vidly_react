@@ -2,8 +2,14 @@ import React from "react";
 import Joi from "joi-browser";
 import Form from "./common/form";
 import { Login } from "../services/authService";
+import { useNavigate } from "react-router-dom";
 
-class LoginForm extends Form {
+const LoginForm = () => {
+  const navigate = useNavigate();
+  return <LoginFormC navigate={navigate} />;
+};
+
+class LoginFormC extends Form {
   state = {
     data: { username: "", password: "" },
     errors: {},
@@ -20,8 +26,10 @@ class LoginForm extends Form {
   doSubmit = async () => {
     // Call the server
     try {
-      await Login(this.state.data);
+      const { data: jwt } = await Login(this.state.data);
+      localStorage.setItem("token", jwt);
       console.log("logged in");
+      return this.props.navigate("/movies");
     } catch (ex) {
       if (ex.response && ex.response.status === 400) {
         const errors = { ...this.state.errors };
