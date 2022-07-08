@@ -5,9 +5,9 @@ import { register } from "../services/usersService";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 
-const RegisterForm = () => {
+const RegisterForm = ({ setToken }) => {
   const navigate = useNavigate();
-  return <RegisterFormC navigate={navigate} />;
+  return <RegisterFormC navigate={navigate} setToken={setToken} />;
 };
 
 class RegisterFormC extends Form {
@@ -31,7 +31,9 @@ class RegisterFormC extends Form {
 
     await register(this.state.data)
       .then((data) => {
-        localStorage.setItem("token", data.headers["x-auth-token"]);
+        const token = data.headers["x-auth-token"];
+        localStorage.setItem("token", token);
+        this.props.setToken(token);
         console.log("registerd ");
         return this.props.navigate("/movies");
       })

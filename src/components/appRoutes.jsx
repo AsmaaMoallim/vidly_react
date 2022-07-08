@@ -8,11 +8,11 @@ import MovieForm from "./movieForm";
 import LoginForm from "./loginForm";
 import RegisterForm from "./registerForm";
 
-const AppRoutes = () => {
+const AppRoutes = ({ setToken }) => {
   return (
     <Routes>
       <Route path="/login" element={<LoginForm />} />
-      <Route path="/register" element={<RegisterForm />} />
+      <Route path="/register" element={<RegisterForm setToken={setToken} />} />
       <Route path="/movies" element={<Movies />} />
       {/* <Route path="/movies/new" element={<MovieForm />} /> */}
       <Route path="/movies/:id" element={<MovieForm />} />
