@@ -3,8 +3,14 @@ import Joi from "joi-browser";
 import Form from "./common/form";
 import { register } from "../services/usersService";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
-class RegisterForm extends Form {
+const RegisterForm = () => {
+  const navigate = useNavigate();
+  return <RegisterFormC navigate={navigate} />;
+};
+
+class RegisterFormC extends Form {
   state = {
     data: { username: "", password: "", name: "" },
     errors: {},
@@ -22,17 +28,28 @@ class RegisterForm extends Form {
 
   doSubmit = async () => {
     // Call the server
-    await register(this.state.data)
-      .then(() => console.log("registered in"))
-      .catch((ex) => {
-        if (ex.response && ex.response.status === 400) {
-          const errors = { ...this.state.errors };
-          errors.username = ex.response.data;
-          this.setState({errors});
-          // toast.error(ex.response.data);
-          // console.log(ex.response);
-        }
+
+    try {
+      await register(this.state.data).then((data) => {
+        localStorage.setItem("token", data.headers["x-auth-token"]);
+        console.log("registerd ");
+        return this.props.navigate("/movies");
       });
+    } catch (ex) {
+      if (ex.response && ex.response.status === 400) {
+        const errors = { ...this.state.errors };
+        errors.username = ex.response.data;
+        this.setState({ errors });
+      }
+    }
+    //   .then((data) => {
+    //     // return console.log(data.headers["x-auth-token"]);
+    //   })
+    //   .catch((ex) => {
+    //       // toast.error(ex.response.data);
+    //       // console.log(ex.response);
+    //     }
+    //   });
   };
 
   render() {
