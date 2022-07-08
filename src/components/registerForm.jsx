@@ -22,13 +22,17 @@ class RegisterForm extends Form {
 
   doSubmit = async () => {
     // Call the server
-    await register(this.state.data).then(() => console.log("registered in")).catch(ex=> {
-      if(ex.response && ex.response.status === 400){
-        // const errors = {...this.state.errors}
-        // errors
-        toast.error(ex.response.data);
-      }
-    });
+    await register(this.state.data)
+      .then(() => console.log("registered in"))
+      .catch((ex) => {
+        if (ex.response && ex.response.status === 400) {
+          const errors = { ...this.state.errors };
+          errors.username = ex.response.data;
+          this.setState({errors});
+          // toast.error(ex.response.data);
+          // console.log(ex.response);
+        }
+      });
   };
 
   render() {
