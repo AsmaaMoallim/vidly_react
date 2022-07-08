@@ -5,38 +5,22 @@ import { ToastContainer } from "react-toastify";
 import React, { useEffect } from "react";
 import "react-toastify/dist/ReactToastify.css";
 import { useState } from "react";
-import jwtdecode from "jwt-decode";
-import { getUser } from "./services/usersService";
+import { setUserBasedOnToken } from "./utils/decodeToken";
 
 function App() {
   const [user, setUser] = useState();
   const [token, setToken] = useState(() => localStorage.getItem("token"));
 
-  const setUserBasedOnToken = async (token) => {
-    const { _id: userId } = jwtdecode(token);
-    await getUser(userId)
-      .then((data) => {
-        setUser(data);
-      })
-      .catch((ex) => {
-        console.log("Error ", ex);
-      });
-  };
-
   useEffect(() => {
-    if (token) setUserBasedOnToken(token);
+    if (token) setUserBasedOnToken(token, setUser);
   }, [token]);
 
   return (
     <React.Fragment>
       <ToastContainer />
       <main className="container">
-        {/* {console.log("return", user)} */}
-        <NavBar />
-        {user && <h1>{user.data.name}</h1>}
-
-        {/* <Movies /> */}
-
+        <NavBar user={user} />
+        {user && <h1>{user.name}</h1>}
         <AppRoutes setToken={setToken} />
       </main>
     </React.Fragment>
