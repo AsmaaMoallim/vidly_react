@@ -1,13 +1,13 @@
 import axios from "axios";
 import Config from "../config.json";
-// import { toast } from "react-toastify";
+import { toast } from "react-toastify";
 axios.interceptors.response.use(null, (err) => {
   const expected =
-    err.response && err.response.status >= 400 && err.response.statu < 500;
+    err.response && err.response.status >= 400 && err.response.status < 500;
 
   if (!expected) {
     console.log("logging the error", err);
-    // toast.error("unexpected error");
+    toast.error("unexpected error");
   }
 
   return Promise.reject(err);
@@ -15,9 +15,9 @@ axios.interceptors.response.use(null, (err) => {
 
 const endpointbase = Config.apiEndPoint;
 
-export const setEndPointPath = (path) =>{
-  return `${endpointbase}${path}`
-}
+export const setEndPointPath = (path) => {
+  return `${endpointbase}${path}`;
+};
 
 export default {
   get: axios.get,
