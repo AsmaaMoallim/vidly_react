@@ -3,6 +3,7 @@ import Config from "../config.json";
 import { toast } from "react-toastify";
 
 axios.defaults.headers.common["x-auth-token"] = localStorage.getItem("token")
+axios.defaults.baseURL = process.env.REACT_APP_API_URL;
 
 axios.interceptors.response.use(null, (err) => {
   const expected =
@@ -19,7 +20,10 @@ axios.interceptors.response.use(null, (err) => {
 const endpointbase = Config.apiEndPoint;
 
 export const setEndPointPath = (path) => {
-  return `${endpointbase}${path}`;
+  // return `${endpointbase}${path}`;
+
+  // production
+  return `${path}`;
 };
 
 export default {
