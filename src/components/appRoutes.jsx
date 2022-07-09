@@ -13,15 +13,16 @@ import ProtectedRoute from "./protectedRoute";
 const AppRoutes = ({ setToken, token, user }) => {
   return (
     <Routes>
+      <Route path="/movies" element={<ProtectedRoute token={token} />}>
+        <Route path="/movies" element={<Movies user={user} />} />
+      </Route>
       <Route path="/login" element={<LoginForm setToken={setToken} />} />
+
       <Route
         path="/logout"
         element={<Logout token={token} setToken={setToken} />}
       />
       <Route path="/register" element={<RegisterForm setToken={setToken} />} />
-      <Route element={<ProtectedRoute user={user} />}>
-        <Route path="/movies" element={<Movies user={user} />} />
-      </Route>
       {/* <Route path="/movies/new" element={<MovieForm />} /> */}
       <Route path="/movies/:id" element={<MovieForm />} />
       <Route path="/customers" element={<Customers />} />

@@ -5,7 +5,8 @@ export const setUserBasedOnToken = async (token, callback) => {
   const { _id: userId } = jwtdecode(token);
   await getUser(userId)
     .then((res) => {
-      callback(res.data);
+      // console.log(res.data);
+      return callback(res.data);
     })
     .catch((ex) => {
       console.log("Error ", ex);

@@ -2,16 +2,19 @@ import { replace } from "lodash";
 import React from "react";
 import { Navigate, Outlet, useNavigate } from "react-router-dom";
 
-const useAuth = (user) => {
-  if (!user) return false;
-  else return true;
+const useAuth = (token) => {
+  if (!token) {
+    // console.log(token);
+    return false;
+  } else return true;
 };
 
-const ProtectedRoute = ({ user }) => {
+const ProtectedRoute = ({ token, path }) => {
   const navigate = useNavigate();
-  const isAuth = useAuth(user);
+  const isAuth = useAuth(token);
 
   // if (!user) {
-  return isAuth ? <Outlet /> : <Navigate to="/login"  replace/>;
+  return isAuth ? <Outlet /> : <Navigate to="/login" />;
 };
+
 export default ProtectedRoute;

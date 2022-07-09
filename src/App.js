@@ -14,7 +14,6 @@ function App() {
   useEffect(() => {
     setToken(token);
     if (token) setUserBasedOnToken(token, setUser);
-    console.log(token);
   }, [token]);
 
   return (

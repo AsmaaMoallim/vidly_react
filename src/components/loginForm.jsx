@@ -2,7 +2,7 @@ import React from "react";
 import Joi from "joi-browser";
 import Form from "./common/form";
 import { Login } from "../services/authService";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 
 const LoginForm = ({ setToken }) => {
   const navigate = useNavigate();
@@ -31,7 +31,7 @@ class LoginFormC extends Form {
         localStorage.setItem("token", res.data);
         this.props.setToken(res.data);
         console.log("logged in");
-        return this.props.navigate("/movies");
+        return this.props.navigate("/movies", { replace: true });
       })
       .catch((ex) => {
         if (ex.response && ex.response.status === 400) {
