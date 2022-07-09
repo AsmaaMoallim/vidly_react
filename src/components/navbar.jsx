@@ -47,7 +47,7 @@ const NavBar = ({ user }) => {
                     {user.name}
                   </NavLink>
                 </li>
-                <li>
+                <li >
                   <NavLink to={"/logout"} className="nav-link">
                     Logout
                   </NavLink>

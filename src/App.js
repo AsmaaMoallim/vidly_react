@@ -9,10 +9,12 @@ import { setUserBasedOnToken } from "./utils/decodeToken";
 
 function App() {
   const [user, setUser] = useState();
-  const [token, setToken] = useState(localStorage.getItem("token"));
+  const [token, setToken] = useState(() => localStorage.getItem("token"));
 
   useEffect(() => {
+    setToken(token);
     if (token) setUserBasedOnToken(token, setUser);
+    console.log(token);
   }, [token]);
 
   return (
@@ -21,7 +23,7 @@ function App() {
       <main className="container">
         <NavBar user={user} />
         {/* {user && <h1>{user.name}</h1>} */}
-        <AppRoutes setToken={setToken} />
+        <AppRoutes token={token} setToken={setToken} />
       </main>
     </React.Fragment>
   );

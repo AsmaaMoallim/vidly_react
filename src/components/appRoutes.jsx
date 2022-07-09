@@ -7,11 +7,16 @@ import Movies from "./movie";
 import MovieForm from "./movieForm";
 import LoginForm from "./loginForm";
 import RegisterForm from "./registerForm";
+import Logout from "./logOut";
 
-const AppRoutes = ({ setToken }) => {
+const AppRoutes = ({ setToken, token }) => {
   return (
     <Routes>
       <Route path="/login" element={<LoginForm setToken={setToken} />} />
+      <Route
+        path="/logout"
+        element={<Logout token={token} setToken={setToken} />}
+      />
       <Route path="/register" element={<RegisterForm setToken={setToken} />} />
       <Route path="/movies" element={<Movies />} />
       {/* <Route path="/movies/new" element={<MovieForm />} /> */}
