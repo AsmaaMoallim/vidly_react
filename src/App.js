@@ -16,6 +16,8 @@ function App() {
     if (token) setUserBasedOnToken(token, setUser);
   }, [token]);
 
+  console.log(process.env);
+
   return (
     <React.Fragment>
       <ToastContainer />
