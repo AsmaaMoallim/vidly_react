@@ -9,15 +9,18 @@ import LoginForm from "./loginForm";
 import RegisterForm from "./registerForm";
 import Logout from "./logOut";
 import ProtectedRoute from "./protectedRoute";
+import { render } from "@testing-library/react";
 
 const AppRoutes = ({ setToken, token, user }) => {
   return (
     <Routes>
-      <Route path="/movies" element={<ProtectedRoute token={token} />}>
+      <Route element={<ProtectedRoute token={token} />}>
         <Route path="/movies" element={<Movies user={user} />} />
       </Route>
-      <Route path="/login" element={<LoginForm setToken={setToken} />} />
-
+      <Route
+        path="/login"
+        element={<LoginForm setToken={setToken} token={token} />}
+      />
       <Route
         path="/logout"
         element={<Logout token={token} setToken={setToken} />}

@@ -4,8 +4,18 @@ import Form from "./common/form";
 import { Login } from "../services/authService";
 import { Navigate, useNavigate } from "react-router-dom";
 
-const LoginForm = ({ setToken }) => {
+const useAuth = (token) => {
+  if (!token) {
+    // console.log(token);
+    return false;
+  } else return true;
+};
+
+const LoginForm = ({ setToken, token }) => {
   const navigate = useNavigate();
+  if (useAuth(token)) return <Navigate to="/movies" replace />;
+  // navigate("/movies", { replace: true });
+
   return <LoginFormC navigate={navigate} setToken={setToken} />;
 };
 
