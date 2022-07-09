@@ -4,9 +4,9 @@ import Form from "./common/form";
 import { Login } from "../services/authService";
 import { useNavigate } from "react-router-dom";
 
-const LoginForm = () => {
+const LoginForm = ({ setToken }) => {
   const navigate = useNavigate();
-  return <LoginFormC navigate={navigate} />;
+  return <LoginFormC navigate={navigate} setToken={setToken} />;
 };
 
 class LoginFormC extends Form {
@@ -25,19 +25,26 @@ class LoginFormC extends Form {
 
   doSubmit = async () => {
     // Call the server
-    try {
-      const { data: jwt } = await Login(this.state.data);
-      localStorage.setItem("token", jwt);
-      console.log("logged in");
-      return this.props.navigate("/movies");
-    } catch (ex) {
-      if (ex.response && ex.response.status === 400) {
-        const errors = { ...this.state.errors };
-        errors.username = ex.response.data;
-        this.setState({ errors });
-        console.log(ex.response.data);
-      }
-    }
+    await Login(this.state.data)
+      .then((res) => {
+        // console.log(res.data);
+        localStorage.setItem("token", res.data);
+        this.props.setToken(res.data);
+        console.log("logged in");
+        return this.props.navigate("/movies");
+      })
+      .catch((ex) => {
+        if (ex.response && ex.response.status === 400) {
+          const errors = { ...this.state.errors };
+          errors.username = ex.response.data;
+          this.setState({ errors });
+          console.log(ex.response.data);
+        }
+      });
+    // try {
+    //   const { data: jwt } = await Login(this.state.data);
+    // } catch (ex) {
+    // }
   };
 
   render() {

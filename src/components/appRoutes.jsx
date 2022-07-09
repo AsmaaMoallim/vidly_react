@@ -11,7 +11,7 @@ import RegisterForm from "./registerForm";
 const AppRoutes = ({ setToken }) => {
   return (
     <Routes>
-      <Route path="/login" element={<LoginForm />} />
+      <Route path="/login" element={<LoginForm setToken={setToken} />} />
       <Route path="/register" element={<RegisterForm setToken={setToken} />} />
       <Route path="/movies" element={<Movies />} />
       {/* <Route path="/movies/new" element={<MovieForm />} /> */}
