@@ -124,8 +124,8 @@ class Movies extends Component {
 
   render() {
     const { totalCount, data } = this.getPageData();
-    if (this.state.currentGenre && totalCount <= 0)
-      return <p>There is no movies! </p>;
+    // if (this.state.currentGenre && totalCount <= 0)
+    //   return <p>There is no movies! </p>;
     return (
       <div className="row">
         <div className="col-2">
