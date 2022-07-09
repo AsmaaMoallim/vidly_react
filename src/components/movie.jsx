@@ -153,6 +153,8 @@ class Movies extends Component {
             onlDelete={this.handelDelete}
             onSort={this.handelSort}
             sortColumn={this.state.sortColumn}
+            token={this.props.token}
+            user={this.props.user}
           />
           <Pagination
             itemsCount={totalCount}

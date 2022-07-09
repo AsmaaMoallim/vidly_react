@@ -15,7 +15,7 @@ const AppRoutes = ({ setToken, token, user }) => {
   return (
     <Routes>
       <Route element={<ProtectedRoute token={token} />}>
-        <Route path="/movies" element={<Movies user={user} />} />
+        <Route path="/movies" element={<Movies user={user} token={token} />} />
       </Route>
       <Route
         path="/login"

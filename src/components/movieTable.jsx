@@ -29,16 +29,19 @@ class MovieTable extends Component {
     },
     {
       key: "deleteButton",
-      content: (movie) => (
-        <button
-          className="btn btn-danger btn-sm"
-          onClick={() => {
-            this.props.onlDelete(movie);
-          }}
-        >
-          Delete
-        </button>
-      ),
+      content: (movie) => {
+        if (this.props.user.isAdmin)
+          return (
+            <button
+              className="btn btn-danger btn-sm"
+              onClick={() => {
+                this.props.onlDelete(movie);
+              }}
+            >
+              Delete
+            </button>
+          );
+      },
     },
   ];
   render() {
