@@ -38,18 +38,21 @@ class Movies extends Component {
 
   handelDelete = async (movie) => {
     const orginalMovies = this.state.movies;
-
     console.log(orginalMovies);
-    const movies = orginalMovies.filter((m) => m._id !== movie._id);
-
-    this.setState({
-      movies,
-    });
     try {
       await deleteMovie(movie._id);
+      const movies = orginalMovies.filter((m) => m._id !== movie._id);
+
+      this.setState({
+        movies,
+      });
     } catch (ex) {
       if (ex.response && ex.response.status === 404) {
         console.log("this movie has been already deleted");
+      }
+
+      if (ex.response && ex.response.status === 400) {
+        console.log("you can not delete this");
       }
 
       this.setState({
@@ -128,10 +131,11 @@ class Movies extends Component {
           />
         </div>
         <div className="col">
-          <NavLink to="/movies/new" className="btn btn-primary mb-1">
-            New Movie
-          </NavLink>
-
+          {this.props.user && (
+            <NavLink to="/movies/new" className="btn btn-primary mb-1">
+              New Movie
+            </NavLink>
+          )}
           <SearchBox
             value={this.state.searchQuery}
             onChange={this.handelSearch}

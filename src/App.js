@@ -23,7 +23,7 @@ function App() {
       <main className="container">
         <NavBar user={user} />
         {/* {user && <h1>{user.name}</h1>} */}
-        <AppRoutes token={token} setToken={setToken} />
+        <AppRoutes token={token} setToken={setToken} user={user} />
       </main>
     </React.Fragment>
   );

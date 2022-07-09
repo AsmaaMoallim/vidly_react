@@ -9,7 +9,7 @@ import LoginForm from "./loginForm";
 import RegisterForm from "./registerForm";
 import Logout from "./logOut";
 
-const AppRoutes = ({ setToken, token }) => {
+const AppRoutes = ({ setToken, token , user}) => {
   return (
     <Routes>
       <Route path="/login" element={<LoginForm setToken={setToken} />} />
@@ -18,7 +18,7 @@ const AppRoutes = ({ setToken, token }) => {
         element={<Logout token={token} setToken={setToken} />}
       />
       <Route path="/register" element={<RegisterForm setToken={setToken} />} />
-      <Route path="/movies" element={<Movies />} />
+      <Route path="/movies" element={<Movies user={user}/>} />
       {/* <Route path="/movies/new" element={<MovieForm />} /> */}
       <Route path="/movies/:id" element={<MovieForm />} />
       <Route path="/customers" element={<Customers />} />
