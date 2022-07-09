@@ -19,14 +19,9 @@ const AppRoutes = ({ setToken, token, user }) => {
         element={<Logout token={token} setToken={setToken} />}
       />
       <Route path="/register" element={<RegisterForm setToken={setToken} />} />
-      <Route
-        path="/movies"
-        element={
-          <ProtectedRoute user={user}>
-            <Movies />{" "}
-          </ProtectedRoute>
-        }
-      />
+      <Route element={<ProtectedRoute user={user} />}>
+        <Route path="/movies" element={<Movies user={user} />} />
+      </Route>
       {/* <Route path="/movies/new" element={<MovieForm />} /> */}
       <Route path="/movies/:id" element={<MovieForm />} />
       <Route path="/customers" element={<Customers />} />

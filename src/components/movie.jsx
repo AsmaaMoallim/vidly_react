@@ -6,7 +6,7 @@ import ListGroup from "./common/listGroup";
 import { getGenre, getGenres } from "../services/genreService";
 import MovieTable from "./movieTable";
 import _ from "lodash";
-import { NavLink, Outlet } from "react-router-dom";
+import { Navigate, NavLink, Outlet } from "react-router-dom";
 import SearchBox from "./common/searchBox";
 
 class Movies extends Component {
@@ -25,6 +25,11 @@ class Movies extends Component {
     },
     searchQuery: "",
   };
+  // componentWillMount() {
+  //   if (!this.props.user) {
+  //     return <Navigate to="/login" />;
+  //   }
+  // }
 
   async componentDidMount() {
     const { data: dbGenres } = await getGenres();
